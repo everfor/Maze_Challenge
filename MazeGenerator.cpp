@@ -106,9 +106,13 @@ int* MazeGenerator::GenerateMaze(int dimension)
 			currentCell = cellStack.pop();
 		}
 	}
+
+	// Return the walls
+	return walls;
 }
 
 int main()
 {
+	// To be implemented
 	return 0;
 }
