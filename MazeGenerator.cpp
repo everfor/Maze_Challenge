@@ -36,10 +36,8 @@ std::vector<std::vector<int>> MazeGenerator::GenerateMaze(int dimension)
 	srand(time(NULL));
 
 	// Initialize stack for storing visited cells and generate walls
-	std::stack<int> cellStack;
+	std::vector<int> cellStack;
 	std::vector<std::vector<int>> walls = MazeGenerator::GenerateWalls(dimension, dimension);
-
-	//No Problem until now
 
 	int totalNumber = dimension * dimension;
 	int currentCell = rand() % totalNumber;
@@ -55,9 +53,11 @@ std::vector<std::vector<int>> MazeGenerator::GenerateMaze(int dimension)
 		temp.push_back(currentCell - dimension);	// Upper neighbor
 		temp.push_back(currentCell + dimension);	// Lower neighbor
 
-		for(unsigned int i = 0; i < temp.size(); i++) {
+		int size = temp.size();
+		
+		for(int i = 0; i < size; i++) {
 			bool wallsIntact = true;
-			if (temp[i] < 0 || temp[i] > totalNumber) {
+			if (temp[i] < 0 || temp[i] >= totalNumber) {
 				continue;
 			} else {
 				wallsIntact = true;
@@ -97,18 +97,21 @@ std::vector<std::vector<int>> MazeGenerator::GenerateMaze(int dimension)
 				// Break the lower wall of current cell and upper wall of the neighbor
 				walls[currentCell][3] = walls[neighbor][1] = 0;
 			}
-
+			
 			// Push the current cell to the stack
-			cellStack.push(currentCell);
+			cellStack.push_back(currentCell);
 			// Set the neighbor as the new currentCell
 			currentCell = neighbor;
 			// Since this neighbor is visited, increase the visited number by 1
-			visitedNumber += 1;
+			
+			++visitedNumber;
 		} else {
 			// If the neighbor list contains no elements, go back to the stack and retrieve the recently pushed cell
 			// And starting from that cell, re-do the process
-			currentCell = cellStack.top();
-			cellStack.pop();
+			if (!cellStack.empty()) {				
+				currentCell = cellStack.back();				
+				cellStack.pop_back();
+			}
 		}
 	}
 
@@ -118,7 +121,7 @@ std::vector<std::vector<int>> MazeGenerator::GenerateMaze(int dimension)
 
 int main()
 {
-	std::vector<std::vector<int>> walls = MazeGenerator::GenerateMaze(20);
+	MazeGenerator::GenerateMaze(30);
 
 	std::cout<<"done";
 	// To be implemented
