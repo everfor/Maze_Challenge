@@ -1,11 +1,13 @@
 ﻿#ifndef MAZEGENERATOR_H
 #define MAZEGENERATOR_H
 
-Class MazeGenerator
+#include <vector>
+
+class MazeGenerator
 {
 	public:
-		static int* GenerateMaze(int dimension);
-		static int* GenerateWalls(int width, int height);
+		static std::vector<std::vector<int>> GenerateMaze(int dimension);
+		static std::vector<std::vector<int>> GenerateWalls(int width, int height);
 };
 
 #endif

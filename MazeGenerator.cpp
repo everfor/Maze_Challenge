@@ -7,32 +7,39 @@
 #include <iostream>
 #include <algorithm>	// Use of std::fill
 #include <stack>		// Use of std::stack
-#include <stdlib>		// Use of srand and rand
-#include <time>			// Used to generate seeds for random number
-#include <vector>
+#include <stdlib.h>		// Use of srand and rand
+#include <time.h>			// Used to generate seeds for random number
 
 #include "MazeGenerator.h"	// The header file where the Maze Generator is defined
 
 // Generate walls in a maze given a dimension
 // By defualt, every cell is surrounded by 4 walls
-int* MazeGenerator::GenerateWalls(int width, int height)
+std::vector<std::vector<int>> MazeGenerator::GenerateWalls(int width, int height)
 {
-	int walls[height * width][4];
-	std::fill(&walls[0][0], &walls[0][0] + sizeof(walls), 1);
+	std::vector<std::vector<int>> walls;
+	int i = 0, total = height * width;
+	int wall_temp[4] = {1, 1, 1, 1};
+	std::vector<int> wall (wall_temp, wall_temp + sizeof(wall_temp) / sizeof(int));
+
+	for(; i < total; i++) {
+		walls.push_back(wall);
+	}
 
 	return walls;
 }
 
 // Generate a perfect maze given a dimension
 // A perfect maze contains no loops and there is only one path for any two cells of the maze
-int* MazeGenerator::GenerateMaze(int dimension)
+std::vector<std::vector<int>> MazeGenerator::GenerateMaze(int dimension)
 {
 	// Initialize random seed
 	srand(time(NULL));
 
 	// Initialize stack for storing visited cells and generate walls
 	std::stack<int> cellStack;
-	int* walls = MazeGenerator::GenerateWalls(dimension, dimension);
+	std::vector<std::vector<int>> walls = MazeGenerator::GenerateWalls(dimension, dimension);
+
+	//No Problem until now
 
 	int totalNumber = dimension * dimension;
 	int currentCell = rand() % totalNumber;
@@ -48,11 +55,12 @@ int* MazeGenerator::GenerateMaze(int dimension)
 		temp.push_back(currentCell - dimension);	// Upper neighbor
 		temp.push_back(currentCell + dimension);	// Lower neighbor
 
-		for(int i = 0; i < temp.size(); i++) {
+		for(unsigned int i = 0; i < temp.size(); i++) {
+			bool wallsIntact = true;
 			if (temp[i] < 0 || temp[i] > totalNumber) {
 				continue;
 			} else {
-				bool wallsIntact = true;
+				wallsIntact = true;
 				// Preserve only cells with all walls intact
 				for(int j = 0; j < 4; j++) {
 					if (walls[temp[i]][j] == 0) {
@@ -72,26 +80,22 @@ int* MazeGenerator::GenerateMaze(int dimension)
 		if (neighbors.size() > 0) {
 			int neighbor = neighbors[rand() % neighbors.size()];
 
-			switch(currentCell - neighbor) {
-				case 1:
-					// neighbor = currentCell - 1, left neighbor
-					// Break the left wall of current cell and right wall of the neighbor
-					walls[currentCell][0] = walls[neighbor][2] = 0;
-					break;
-				case 0 - 1:
-					// neighbor = currentCell + 1, right neighbor
-					// Break the right wall of current cell and left wall of the neighbor
-					walls[currentCell][2] = walls[neighbor][0] = 0;
-					break;
-				case dimension:
-					// neighbor = currentCell - dimension, upper neighbor
-					// Break the upper wall of current cell and lower wall of the neighbor
-					walls[currentCell][1] = walls[neighbor][3] = 0;
-					break;
-				default:
-					// neighbor = currentCell + dimension, lower neighbor
-					// Break the lower wall of current cell and upper wall of the neighbor
-					walls[currentCell][3] = walls[neighbor][1] = 0;
+			if (currentCell - neighbor == 1) {
+				// neighbor = currentCell - 1, left neighbor
+				// Break the left wall of current cell and right wall of the neighbor
+				walls[currentCell][0] = walls[neighbor][2] = 0;
+			} else if (currentCell - neighbor == 0 - 1) {
+				// neighbor = currentCell + 1, right neighbor
+				// Break the right wall of current cell and left wall of the neighbor
+				walls[currentCell][2] = walls[neighbor][0] = 0;
+			} else if (currentCell - neighbor == dimension) {
+				// neighbor = currentCell - dimension, upper neighbor
+				// Break the upper wall of current cell and lower wall of the neighbor
+				walls[currentCell][1] = walls[neighbor][3] = 0;
+			} else {
+				// neighbor = currentCell + dimension, lower neighbor
+				// Break the lower wall of current cell and upper wall of the neighbor
+				walls[currentCell][3] = walls[neighbor][1] = 0;
 			}
 
 			// Push the current cell to the stack
@@ -103,7 +107,8 @@ int* MazeGenerator::GenerateMaze(int dimension)
 		} else {
 			// If the neighbor list contains no elements, go back to the stack and retrieve the recently pushed cell
 			// And starting from that cell, re-do the process
-			currentCell = cellStack.pop();
+			currentCell = cellStack.top();
+			cellStack.pop();
 		}
 	}
 
@@ -113,6 +118,9 @@ int* MazeGenerator::GenerateMaze(int dimension)
 
 int main()
 {
+	std::vector<std::vector<int>> walls = MazeGenerator::GenerateMaze(20);
+
+	std::cout<<"done";
 	// To be implemented
 	return 0;
 }
