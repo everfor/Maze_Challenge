@@ -42,8 +42,12 @@ std::vector<std::vector<int>> MazeGenerator::GenerateMaze(int dimension)
 		// Vector used to store the neighbors of the current cell
 		std::vector<int> neighbors;
 		std::vector<int> temp;
-		temp.push_back(currentCell - 1);			// Right neighbor
-		temp.push_back(currentCell + 1);			// Left neighbor
+		if (currentCell % dimension != 0) {
+			temp.push_back(currentCell - 1);			// Left neighbor
+		}
+		if (currentCell % dimension != dimension - 1) {
+			temp.push_back(currentCell + 1);			// Right neighbor
+		}
 		temp.push_back(currentCell - dimension);	// Upper neighbor
 		temp.push_back(currentCell + dimension);	// Lower neighbor
 
