@@ -4,12 +4,6 @@
 	Credits To: Maze Work (http://www.mazeworks.com/mazegen/mazetut/)
 */
 
-#include <iostream>
-#include <algorithm>	// Use of std::fill
-#include <stack>		// Use of std::stack
-#include <stdlib.h>		// Use of srand and rand
-#include <time.h>			// Used to generate seeds for random number
-
 #include "MazeGenerator.h"	// The header file where the Maze Generator is defined
 
 // Generate walls in a maze given a dimension
@@ -117,13 +111,4 @@ std::vector<std::vector<int>> MazeGenerator::GenerateMaze(int dimension)
 
 	// Return the walls
 	return walls;
-}
-
-int main()
-{
-	MazeGenerator::GenerateMaze(30);
-
-	std::cout<<"done";
-	// To be implemented
-	return 0;
 }

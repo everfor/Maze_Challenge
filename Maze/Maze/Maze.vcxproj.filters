@@ -18,9 +18,15 @@
     <ClCompile Include="..\..\MazeGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\MazeSolver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\MazeGenerator.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MazeSolver.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

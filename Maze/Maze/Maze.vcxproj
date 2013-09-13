@@ -77,9 +77,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\MazeGenerator.cpp" />
+    <ClCompile Include="..\..\MazeSolver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\MazeGenerator.h" />
+    <ClInclude Include="..\..\MazeSolver.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
