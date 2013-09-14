@@ -4,7 +4,7 @@
 #include <cstdio>
 #include <ctime>
 
-std::vector<int> MazeSolver::SolveMaze(std::vector<std::vector<int>> walls)
+std::vector<int> MazeSolver::SolveMaze(std::vector<std::vector<int> > walls)
 {
 	// The path that solves the maze
 	std::vector<int> path;
@@ -17,7 +17,7 @@ std::vector<int> MazeSolver::SolveMaze(std::vector<std::vector<int>> walls)
 
 // Validate the path for a maze
 // Returns true if the path is valid, false otherwise
-bool MazeSolver::ValidatePath(int dimension, std::vector<std::vector<int>> walls, std::vector<int> path)
+bool MazeSolver::ValidatePath(int dimension, std::vector<std::vector<int> > walls, std::vector<int> path)
 {
 	// Get the path length and total number of cells in a maze
 	int pathLength = path.size();
@@ -70,7 +70,7 @@ int main(int argc,char *argv[])
 	int dimension = 2;
 
 	// Generate walls for the maze given the dimension
-	std::vector<std::vector<int>> walls = MazeGenerator::GenerateMaze(dimension);
+	std::vector<std::vector<int> > walls = MazeGenerator::GenerateMaze(dimension);
 
 	// Timer
 	// Used to compute the time spent by the maze solving algorithm

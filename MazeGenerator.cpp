@@ -10,9 +10,9 @@
 
 // Generate walls in a maze given a dimension
 // By defualt, every cell is surrounded by 4 walls
-std::vector<std::vector<int>> MazeGenerator::GenerateWalls(int width, int height)
+std::vector<std::vector<int> > MazeGenerator::GenerateWalls(int width, int height)
 {
-	std::vector<std::vector<int>> walls;
+	std::vector<std::vector<int> > walls;
 	int i = 0, total = height * width;
 	int wall_temp[4] = {1, 1, 1, 1};
 	std::vector<int> wall (wall_temp, wall_temp + sizeof(wall_temp) / sizeof(int));
@@ -26,14 +26,14 @@ std::vector<std::vector<int>> MazeGenerator::GenerateWalls(int width, int height
 
 // Generate a perfect maze given a dimension
 // A perfect maze contains no loops and there is only one path for any two cells of the maze
-std::vector<std::vector<int>> MazeGenerator::GenerateMaze(int dimension)
+std::vector<std::vector<int> > MazeGenerator::GenerateMaze(int dimension)
 {
 	// Initialize random seed
 	srand(time(NULL));
 
 	// Initialize stack for storing visited cells and generate walls
 	std::vector<int> cellStack;
-	std::vector<std::vector<int>> walls = MazeGenerator::GenerateWalls(dimension, dimension);
+	std::vector<std::vector<int> > walls = MazeGenerator::GenerateWalls(dimension, dimension);
 
 	int totalNumber = dimension * dimension;
 	int currentCell = rand() % totalNumber;
