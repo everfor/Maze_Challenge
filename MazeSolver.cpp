@@ -37,22 +37,22 @@ bool MazeSolver::ValidatePath(int dimension, std::vector<std::vector<int> > wall
 		
 		if (difference == 1) {
 			// The next cell is right to current cell and there is a wall to the right
-			if (walls[i][2] == 1) {
+			if (walls[path[i]][2] == 1) {
 				return false;
 			}
 		} else if (difference == -1) {
 			// The next cell is left to current cell and there is a wall to the left
-			if (walls[i][0] == 1) {
+			if (walls[path[i]][0] == 1) {
 				return false;
 			}
 		} else if (difference == dimension) {
 			// The next cell is lower to current cell
-			if (walls[i][3] == 1) {
+			if (walls[path[i]][3] == 1) {
 				return false;
 			}
 		} else if (difference == 0 - dimension) {
 			// The next cell is upper to current cell
-			if (walls[i][1] == 1) {
+			if (walls[path[i]][1] == 1) {
 				return false;
 			}
 		} else {
