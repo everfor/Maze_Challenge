@@ -35,18 +35,26 @@ bool MazeSolver::ValidatePath(int dimension, std::vector<std::vector<int>> walls
 		// Used to determine the relative position of next cell
 		int difference = path[i + 1] - path[i];
 		
-		if (difference == 1 && walls[i][2] == 1) {
+		if (difference == 1) {
 			// The next cell is right to current cell and there is a wall to the right
-			return false;
-		} else if (difference == -1 && walls[i][0] == 1) {
+			if (walls[i][2] == 1) {
+				return false;
+			}
+		} else if (difference == -1) {
 			// The next cell is left to current cell and there is a wall to the left
-			return false;
-		} else if (difference == dimension && walls[i][3] == 1) {
+			if (walls[i][0] == 1) {
+				return false;
+			}
+		} else if (difference == dimension) {
 			// The next cell is lower to current cell
-			return false;
-		} else if (difference == 0 - dimension && walls[i][1] == 1) {
+			if (walls[i][3] == 1) {
+				return false;
+			}
+		} else if (difference == 0 - dimension) {
 			// The next cell is upper to current cell
-			return false;
+			if (walls[i][1] == 1) {
+				return false;
+			}
 		} else {
 			return false;
 		}
@@ -59,7 +67,7 @@ bool MazeSolver::ValidatePath(int dimension, std::vector<std::vector<int>> walls
 int main(int argc,char *argv[])
 {
 	// The dimension of the maze
-	int dimension = 4;
+	int dimension = 2;
 
 	// Generate walls for the maze given the dimension
 	std::vector<std::vector<int>> walls = MazeGenerator::GenerateMaze(dimension);
@@ -78,7 +86,8 @@ int main(int argc,char *argv[])
 	// std::cout<<"Time spent: "<<duration<<"\n"
 
 	// Validate your path
-	// MazeSolver::ValidatePath(dimension, walls, path);
+	// bool validation = MazeSolver::ValidatePath(dimension, walls, path);
+	// std::cout<<validation;
 
 	return 0;
 }
