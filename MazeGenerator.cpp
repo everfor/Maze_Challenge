@@ -1,7 +1,9 @@
 ﻿/*
-	Maze Generator for McGill Robotics Challenges
+	Maze Generator for McGill Robotics Challenges, Mini-Project for Software Team
 	Author: Alan Yang
 	Credits To: Maze Work (http://www.mazeworks.com/mazegen/mazetut/)
+	The code is under MIT license, meaning that you may use and modify the codes as you wish,
+	as long as this header and the license file is preserved.
 */
 
 #include "MazeGenerator.h"	// The header file where the Maze Generator is defined

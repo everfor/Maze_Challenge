@@ -5,7 +5,7 @@
 #include <algorithm>	// Use of std::fill
 #include <stack>		// Use of std::stack
 #include <stdlib.h>		// Use of srand and rand
-#include <time.h>			// Used to generate seeds for random number
+#include <time.h>		// Used to generate seeds for random number
 #include <vector>
 
 class MazeGenerator
