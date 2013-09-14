@@ -6,7 +6,8 @@
 class MazeSolver
 {
 	public:
-		static int* SolveMaze(std::vector<std::vector<int>> walls);
+		static std::vector<int> SolveMaze(std::vector<std::vector<int>> walls);
+		static bool ValidatePath(int dimension, std::vector<std::vector<int>> walls, std::vector<int> path);
 };
 
 #endif
