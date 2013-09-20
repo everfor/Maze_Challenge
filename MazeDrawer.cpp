@@ -13,6 +13,7 @@ void swap(int& a, int& b)
 	b = temp;
 }
 
+// Fill a pixel with specified color
 void MazeDrawer::FillPixel(SDL_Surface* screen, int x, int y, Uint32 color)
 {
 	if (x < screen->w && y < screen -> h) {	
@@ -23,6 +24,7 @@ void MazeDrawer::FillPixel(SDL_Surface* screen, int x, int y, Uint32 color)
 }
 
 // Bresenham's Algorithm
+// http://www.youtube.com/watch?v=jzFAZK9RUMk
 void MazeDrawer::DrawLine(SDL_Surface* screen, int startX, int startY, int endX, int endY, Uint32 color)
 {
 	bool step = abs(endX - startX) < abs(endY - startY);
@@ -57,6 +59,7 @@ void MazeDrawer::DrawLine(SDL_Surface* screen, int startX, int startY, int endX,
 	}
 }
 
+// Draw a maze
 void MazeDrawer::DrawMaze(std::vector<std::vector<int> > walls)
 {
 	const int dimension = (int) sqrt((float) walls.size());
@@ -97,8 +100,9 @@ void MazeDrawer::DrawMaze(std::vector<std::vector<int> > walls)
 
 		// Draw Maze
 		for (int i = 0; i < totalCells - dimension; i++) {
+			// Iterate until second last row
 			if (i % dimension == dimension - 1) {
-				// Draw walls
+				// Draw left, upper and right walls for rightmost cells
 				if (walls[i][0]) {
 					MazeDrawer::DrawLine(screen, MARGIN + horiOffst, MARGIN + vertOffst, 
 									MARGIN + horiOffst, MARGIN + vertOffst + CELL_SIDE + WALL_WIDTH, black);
@@ -115,6 +119,7 @@ void MazeDrawer::DrawMaze(std::vector<std::vector<int> > walls)
 				horiOffst = 0;
 				vertOffst += CELL_SIDE + WALL_WIDTH;
 			} else {
+				// Draw left and upper walls for other cells
 				if (walls[i][0]) {
 					MazeDrawer::DrawLine(screen, MARGIN + horiOffst, MARGIN + vertOffst, 
 									MARGIN + horiOffst, MARGIN + vertOffst + CELL_SIDE + WALL_WIDTH, black);
@@ -128,9 +133,10 @@ void MazeDrawer::DrawMaze(std::vector<std::vector<int> > walls)
 			}
 		}
 
-		
+		// Draw walls for cells in last rows
+		// Save the last cell
 		for (int i = totalCells - dimension; i < totalCells - 1; i++) {
-			// Draw walls
+			// Draw left, upper and lower walls
 			if (walls[i][0]) {
 				MazeDrawer::DrawLine(screen, MARGIN + horiOffst, MARGIN + vertOffst, 
 								MARGIN + horiOffst, MARGIN + vertOffst + CELL_SIDE + WALL_WIDTH, black);
@@ -147,6 +153,7 @@ void MazeDrawer::DrawMaze(std::vector<std::vector<int> > walls)
 			horiOffst += CELL_SIDE + WALL_WIDTH;
 		}
 
+		// Draw all four walls for the last cell
 		if (walls[totalCells - 1][0]) {
 			MazeDrawer::DrawLine(screen, MARGIN + horiOffst, MARGIN + vertOffst, 
 							MARGIN + horiOffst, MARGIN + vertOffst + CELL_SIDE + WALL_WIDTH, black);
