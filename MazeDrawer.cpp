@@ -1,6 +1,11 @@
 #include "MazeDrawer.h"
 #include <iostream>
 
+// Constants
+const int MARGIN = 10;
+const int CELL_SIDE = 2;
+const int WALL_WIDTH = 1;
+
 void swap(int& a, int& b)
 {
 	int temp = a;
@@ -35,7 +40,7 @@ void MazeDrawer::DrawLine(SDL_Surface* screen, int startX, int startY, int endX,
 	int y = startY, x = startX;
 	int ystep = startY > endY? -1 : 1;
 
-	while (x < endX) {
+	while (x <= endX) {
 		if (step) {
 			MazeDrawer::FillPixel(screen, y, x, color);
 		} else {
@@ -54,13 +59,9 @@ void MazeDrawer::DrawLine(SDL_Surface* screen, int startX, int startY, int endX,
 
 void MazeDrawer::DrawMaze(std::vector<std::vector<int> > walls)
 {
-	const int margin = 10;
-	const int cellSide = 2;
-	const int wallWidth = 1;
-
 	const int dimension = (int) sqrt((float) walls.size());
 	const int totalCells = walls.size();
-	const int sizeOfScreen = dimension * (cellSide + wallWidth) + 2 * margin;
+	const int sizeOfScreen = dimension * (CELL_SIDE + WALL_WIDTH) + 2 * MARGIN;
 	
 	// Preserve the cout functions for console
 	freopen("CON", "w", stdout);
@@ -99,31 +100,31 @@ void MazeDrawer::DrawMaze(std::vector<std::vector<int> > walls)
 			if (i % dimension == dimension - 1) {
 				// Draw walls
 				if (walls[i][0]) {
-					MazeDrawer::DrawLine(screen, margin + horiOffst, margin + vertOffst, 
-									margin + horiOffst, margin + vertOffst + cellSide + wallWidth, black);
+					MazeDrawer::DrawLine(screen, MARGIN + horiOffst, MARGIN + vertOffst, 
+									MARGIN + horiOffst, MARGIN + vertOffst + CELL_SIDE + WALL_WIDTH, black);
 				}
 				if (walls[i][1]) {
-					MazeDrawer::DrawLine(screen, margin + horiOffst, margin + vertOffst, 
-									margin + horiOffst + cellSide + wallWidth, margin + vertOffst, black);
+					MazeDrawer::DrawLine(screen, MARGIN + horiOffst, MARGIN + vertOffst, 
+									MARGIN + horiOffst + CELL_SIDE + WALL_WIDTH, MARGIN + vertOffst, black);
 				}
 				if (walls[i][2]) {
-					MazeDrawer::DrawLine(screen, margin + horiOffst + cellSide + wallWidth, margin + vertOffst, 
-									margin + horiOffst + cellSide + wallWidth, margin + vertOffst + cellSide + wallWidth, black);
+					MazeDrawer::DrawLine(screen, MARGIN + horiOffst + CELL_SIDE + WALL_WIDTH, MARGIN + vertOffst, 
+									MARGIN + horiOffst + CELL_SIDE + WALL_WIDTH, MARGIN + vertOffst + CELL_SIDE + WALL_WIDTH, black);
 				}
 
 				horiOffst = 0;
-				vertOffst += cellSide + wallWidth;
+				vertOffst += CELL_SIDE + WALL_WIDTH;
 			} else {
 				if (walls[i][0]) {
-					MazeDrawer::DrawLine(screen, margin + horiOffst, margin + vertOffst, 
-									margin + horiOffst, margin + vertOffst + cellSide + wallWidth, black);
+					MazeDrawer::DrawLine(screen, MARGIN + horiOffst, MARGIN + vertOffst, 
+									MARGIN + horiOffst, MARGIN + vertOffst + CELL_SIDE + WALL_WIDTH, black);
 				}
 				if (walls[i][1]) {
-					MazeDrawer::DrawLine(screen, margin + horiOffst, margin + vertOffst, 
-									margin + horiOffst + cellSide + wallWidth, margin + vertOffst, black);
+					MazeDrawer::DrawLine(screen, MARGIN + horiOffst, MARGIN + vertOffst, 
+									MARGIN + horiOffst + CELL_SIDE + WALL_WIDTH, MARGIN + vertOffst, black);
 				}
 
-				horiOffst += cellSide + wallWidth;
+				horiOffst += CELL_SIDE + WALL_WIDTH;
 			}
 		}
 
@@ -131,36 +132,36 @@ void MazeDrawer::DrawMaze(std::vector<std::vector<int> > walls)
 		for (int i = totalCells - dimension; i < totalCells - 1; i++) {
 			// Draw walls
 			if (walls[i][0]) {
-				MazeDrawer::DrawLine(screen, margin + horiOffst, margin + vertOffst, 
-								margin + horiOffst, margin + vertOffst + cellSide + wallWidth, black);
+				MazeDrawer::DrawLine(screen, MARGIN + horiOffst, MARGIN + vertOffst, 
+								MARGIN + horiOffst, MARGIN + vertOffst + CELL_SIDE + WALL_WIDTH, black);
 			}
 			if (walls[i][1]) {
-				MazeDrawer::DrawLine(screen, margin + horiOffst, margin + vertOffst, 
-								margin + horiOffst + cellSide + wallWidth, margin + vertOffst, black);
+				MazeDrawer::DrawLine(screen, MARGIN + horiOffst, MARGIN + vertOffst, 
+								MARGIN + horiOffst + CELL_SIDE + WALL_WIDTH, MARGIN + vertOffst, black);
 			}
 			if (walls[i][3]) {
-				MazeDrawer::DrawLine(screen, margin + horiOffst, margin + vertOffst + cellSide + wallWidth, 
-								margin + horiOffst + cellSide + wallWidth, margin + vertOffst + cellSide + wallWidth, black);
+				MazeDrawer::DrawLine(screen, MARGIN + horiOffst, MARGIN + vertOffst + CELL_SIDE + WALL_WIDTH, 
+								MARGIN + horiOffst + CELL_SIDE + WALL_WIDTH, MARGIN + vertOffst + CELL_SIDE + WALL_WIDTH, black);
 			}
 
-			horiOffst += cellSide + wallWidth;
+			horiOffst += CELL_SIDE + WALL_WIDTH;
 		}
 
 		if (walls[totalCells - 1][0]) {
-			MazeDrawer::DrawLine(screen, margin + horiOffst, margin + vertOffst, 
-							margin + horiOffst, margin + vertOffst + cellSide + wallWidth, black);
+			MazeDrawer::DrawLine(screen, MARGIN + horiOffst, MARGIN + vertOffst, 
+							MARGIN + horiOffst, MARGIN + vertOffst + CELL_SIDE + WALL_WIDTH, black);
 		}
 		if (walls[totalCells - 1][1]) {
-			MazeDrawer::DrawLine(screen, margin + horiOffst, margin + vertOffst, 
-							margin + horiOffst + cellSide + wallWidth, margin + vertOffst, black);
+			MazeDrawer::DrawLine(screen, MARGIN + horiOffst, MARGIN + vertOffst, 
+							MARGIN + horiOffst + CELL_SIDE + WALL_WIDTH, MARGIN + vertOffst, black);
 		}
 		if (walls[totalCells - 1][2]) {
-			MazeDrawer::DrawLine(screen, margin + horiOffst + cellSide + wallWidth, margin + vertOffst, 
-							margin + horiOffst + cellSide + wallWidth, margin + vertOffst + cellSide + wallWidth, black);
+			MazeDrawer::DrawLine(screen, MARGIN + horiOffst + CELL_SIDE + WALL_WIDTH, MARGIN + vertOffst, 
+							MARGIN + horiOffst + CELL_SIDE + WALL_WIDTH, MARGIN + vertOffst + CELL_SIDE + WALL_WIDTH, black);
 		}
 		if (walls[totalCells - 1][3]) {
-			MazeDrawer::DrawLine(screen, margin + horiOffst, margin + vertOffst + cellSide + wallWidth, 
-							margin + horiOffst + cellSide + wallWidth, margin + vertOffst + cellSide + wallWidth, black);
+			MazeDrawer::DrawLine(screen, MARGIN + horiOffst, MARGIN + vertOffst + CELL_SIDE + WALL_WIDTH, 
+							MARGIN + horiOffst + CELL_SIDE + WALL_WIDTH, MARGIN + vertOffst + CELL_SIDE + WALL_WIDTH, black);
 		}
 
 		SDL_Flip(screen);
