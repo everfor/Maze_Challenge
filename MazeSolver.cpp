@@ -1,5 +1,7 @@
 #include "MazeGenerator.h"
 #include "MazeSolver.h"
+// Do not uncommet if you did not set up SDL
+// #include "MazeDrawer.h"
 
 #include <cstdio>
 #include <ctime>
@@ -136,7 +138,7 @@ bool MazeSolver::ValidatePath(int dimension, std::vector<std::vector<int> > wall
 int main(int argc,char *argv[])
 {
 	// The dimension of the maze
-	int dimension = 2;
+	int dimension = 200;
 
 	// Generate walls for the maze given the dimension
 	std::vector<std::vector<int> > walls = MazeGenerator::GenerateMaze(dimension);
@@ -150,6 +152,9 @@ int main(int argc,char *argv[])
 	// Get the path that solves the maze
 	std::vector<int> path = MazeSolver::SolveMaze(walls);
 	// std::vector<int> path = MazeSolver::ExampleSolver(walls);
+
+	// Draw the Maze
+	// MazeDrawer::DrawMaze(walls);
 
 	// Timer continued
 	// double duration = (std::clock() - startTime) / (double) CLOCKS_PER_SEC;
