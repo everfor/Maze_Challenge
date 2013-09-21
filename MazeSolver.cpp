@@ -5,6 +5,7 @@
 
 #include <cstdio>
 #include <ctime>
+#include <cmath>
 
 std::vector<int> MazeSolver::SolveMaze(std::vector<std::vector<int> > walls)
 {
