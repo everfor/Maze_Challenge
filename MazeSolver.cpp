@@ -1,7 +1,5 @@
 #include "MazeGenerator.h"
 #include "MazeSolver.h"
-// Do not uncommet if you did not set up SDL
-#include "MazeDrawer.h"
 
 #include <cstdio>
 #include <ctime>
@@ -152,9 +150,6 @@ int main(int argc,char *argv[])
 	// Get the path that solves the maze
 	std::vector<int> path = MazeSolver::SolveMaze(walls);
 	// std::vector<int> path = MazeSolver::ExampleSolver(walls);
-
-	// Draw the Maze
-	MazeDrawer::DrawMaze(walls);
 
 	// Timer continued
 	// double duration = (std::clock() - startTime) / (double) CLOCKS_PER_SEC;
