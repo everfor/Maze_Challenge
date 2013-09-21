@@ -1,2 +1,4 @@
 # Ignore project directory
 Maze_vs/
+*.o
+maze
