@@ -213,6 +213,15 @@ void MazeDrawer::DrawMaze(std::vector<std::vector<int> > walls, std::vector<int>
 	const int FPS = 10;
 	Uint32 startTick;
 
+	// Path
+	int xPos, yPos, diff;
+	Uint32 green = SDL_MapRGB(screen -> format, 102, 255, 0);
+	Uint32 red = SDL_MapRGB(screen -> format, 255, 69, 0);
+	bool nextRed = false;
+	bool test = true;
+
+	int horiOffst, vertOffst;
+	
 	while (run) {
 		startTick = SDL_GetTicks();
 		SDL_Event event;
@@ -228,7 +237,8 @@ void MazeDrawer::DrawMaze(std::vector<std::vector<int> > walls, std::vector<int>
 		SDL_FillRect(screen, &screen->clip_rect, white);
 
 		// Horizontal Offset and Vertical Offset
-		int horiOffst = 0, vertOffst = 0;
+		horiOffst = 0;
+		vertOffst = 0;
 
 		// Draw Maze
 		for (int i = 0; i < totalCells - dimension; i++) {
@@ -304,12 +314,6 @@ void MazeDrawer::DrawMaze(std::vector<std::vector<int> > walls, std::vector<int>
 		}
 
 		// Draw path
-		int xPos, yPos, diff;
-		Uint32 green = SDL_MapRGB(screen -> format, 102, 255, 0);
-		Uint32 red = SDL_MapRGB(screen -> format, 255, 69, 0);
-		bool nextRed = false;
-		bool test = true;
-
 		for (int i = 0; i < pathLength - 1; i++) {
 			xPos = (int) path[i] % dimension;
 			yPos = (int) path[i] / dimension;
