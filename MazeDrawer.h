@@ -2,6 +2,7 @@
 #define MAZEDRAWER_H
 
 #include <vector>
+// If this does not work, use "SDL/SDL.h" instead
 #include "SDL.h"
 
 class MazeDrawer
