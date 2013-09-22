@@ -151,14 +151,14 @@ int main(int argc, char *argv[])
 	// startTime = std::clock();
 
 	// Get the path that solves the maze
-	// std::vector<int> path = MazeSolver::SolveMaze(walls);
-	std::vector<int> path = MazeSolver::ExampleSolver(walls);
+	std::vector<int> path = MazeSolver::SolveMaze(walls);
+	// std::vector<int> path = MazeSolver::ExampleSolver(walls);
 
 	// Draw the maze without path
-	// MazeDrawer::DrawMaze(walls);
+	MazeDrawer::DrawMaze(walls);
 
 	// Draw the maze with a path
-	MazeDrawer::DrawMaze(walls, path);
+	// MazeDrawer::DrawMaze(walls, path);
 
 	// Timer continued
 	// double duration = (std::clock() - startTime) / (double) CLOCKS_PER_SEC;
