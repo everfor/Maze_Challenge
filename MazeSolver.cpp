@@ -136,29 +136,51 @@ bool MazeSolver::ValidatePath(int dimension, std::vector<std::vector<int> > wall
 
 int main(int argc,char *argv[])
 {
+	// Initialize random seed
+	time_t seed = time(NULL);
+	std::cout << "Seed: " << seed << std::endl;
+	srand(seed);
+	
+	if(argc != 3) {
+		std::cout << "Usage: maze <dimension> <tries>" << std::endl;
+		exit(1);
+	}
 	// The dimension of the maze
-	int dimension = 200;
+	int dimension = atoi(argv[1]);
+	int tries = atoi(argv[2]);
+	
+	if(dimension < 1 || tries < 1) {
+		std::cout << "Invalid input, please retry" << std::endl;
+		exit(1);
+	}
 
-	// Generate walls for the maze given the dimension
-	std::vector<std::vector<int> > walls = MazeGenerator::GenerateMaze(dimension);
+	double totalDuration = 0.d;
+	
+	for(int i = 0 ; i < tries ; i++) {
+		std::cout << "Starting run #" << (i + 1) << std::endl;
+		// Generate walls for the maze given the dimension
+		std::vector<std::vector<int> > walls = MazeGenerator::GenerateMaze(dimension);
+		
+		std::clock_t startTime;
+		startTime = std::clock();
 
-	// Timer
-	// Used to compute the time spent by the maze solving algorithm
-	// Enable it if you want to measure the time
-	// std::clock_t startTime;
-	// startTime = std::clock();
+		// Get the path that solves the maze
+		std::vector<int> path = MazeSolver::SolveMaze(walls);
 
-	// Get the path that solves the maze
-	std::vector<int> path = MazeSolver::SolveMaze(walls);
-	// std::vector<int> path = MazeSolver::ExampleSolver(walls);
+		double duration = (std::clock() - startTime) / (double) CLOCKS_PER_SEC;
 
-	// Timer continued
-	// double duration = (std::clock() - startTime) / (double) CLOCKS_PER_SEC;
-	// std::cout<<"Time spent: "<<duration<<"\n"
-
-	// Validate your path
-	// bool validation = MazeSolver::ValidatePath(dimension, walls, path);
-	// std::cout<<validation<<std::endl;
+		// Path validation
+		if(!MazeSolver::ValidatePath(dimension, walls, path)) {
+			std::cout << "Your solution for this run is invalid. Please check your algorithm." << std::endl;
+			exit(1);
+		}
+		
+		totalDuration += duration;
+		std::cout << "Run #" << (i + 1) << " done." << std::endl;
+	}
+	
+	std::cout << "Done! Your average time was " << (totalDuration / tries) << "s, over " 
+				<< tries << " runs on mazes of dimension " << dimension << std::endl;
 
 	return 0;
 }
