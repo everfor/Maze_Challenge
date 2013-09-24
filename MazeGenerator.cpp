@@ -28,9 +28,6 @@ std::vector<std::vector<int> > MazeGenerator::GenerateWalls(int width, int heigh
 // A perfect maze contains no loops and there is only one path for any two cells of the maze
 std::vector<std::vector<int> > MazeGenerator::GenerateMaze(int dimension)
 {
-	// Initialize random seed
-	srand(time(NULL));
-
 	// Initialize stack for storing visited cells and generate walls
 	std::vector<int> cellStack;
 	std::vector<std::vector<int> > walls = MazeGenerator::GenerateWalls(dimension, dimension);
