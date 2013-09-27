@@ -6,6 +6,11 @@
 #include <cstdio>
 #include <ctime>
 #include <cmath>
+#include <iostream>
+#include <algorithm>	// Use of std::fill
+#include <stack>		// Use of std::stack
+#include <stdlib.h>		// Use of srand and rand
+#include <time.h>		// Used to generate seeds for random number
 
 std::vector<int> MazeSolver::SolveMaze(std::vector<std::vector<int> > walls)
 {
@@ -48,24 +53,18 @@ std::vector<int> MazeSolver::ExampleSolver(std::vector<std::vector<int> > walls)
 		}
 		if (currentCell % dimension != dimension - 1 && currentCell < totalNumber - 1) {
 			// Right neighbor
-			// If it is adjacent to current cell and has not been visited,
-			// Add it to valid neighbors list
 			if (walls[currentCell][2] == 0 && !visited[currentCell + 1]) {
 				neighbors.push_back(currentCell + 1);
 			}
 		}
 		if (currentCell >= dimension) {
 			// Upper neighbor
-			// If it is adjacent to current cell and has not been visited,
-			// Add it to valid neighbors list
 			if (walls[currentCell][1] == 0 && !visited[currentCell - dimension]) {
 				neighbors.push_back(currentCell - dimension);
 			}
 		}
 		if (currentCell < totalNumber - dimension) {
 			// Lower neighbor
-			// If it is adjacent to current cell and has not been visited,
-			// Add it to valid neighbors list
 			if (walls[currentCell][3] == 0 && !visited[currentCell + dimension]) {
 				neighbors.push_back(currentCell + dimension);
 			}
@@ -95,7 +94,6 @@ bool MazeSolver::ValidatePath(int dimension, std::vector<std::vector<int> > wall
 	int pathLength = path.size();
 	int totalCells = walls.size();
 
-	// First simple check
 	// Check the start and end cell
 	if (path[0] != 0 || path[pathLength - 1] != totalCells - 1) {
 		return false;
@@ -144,29 +142,27 @@ int main(int argc, char *argv[])
 	// Generate walls for the maze given the dimension
 	std::vector<std::vector<int> > walls = MazeGenerator::GenerateMaze(dimension);
 
-	// Timer
-	// Used to compute the time spent by the maze solving algorithm
-	// Enable it if you want to measure the time
-	// std::clock_t startTime;
-	// startTime = std::clock();
+	// Timer to compute the time spent by the maze solving algorithm
+	std::clock_t startTime;
+	startTime = std::clock();
 
 	// Get the path that solves the maze
-	std::vector<int> path = MazeSolver::SolveMaze(walls);
-	// std::vector<int> path = MazeSolver::ExampleSolver(walls);
-
-	// Draw the maze without path
-	MazeDrawer::DrawMaze(walls);
-
-	// Draw the maze with a path
-	// MazeDrawer::DrawMaze(walls, path);
+	// std::vector<int> path = MazeSolver::SolveMaze(walls);
+	std::vector<int> path = MazeSolver::ExampleSolver(walls);
 
 	// Timer continued
-	// double duration = (std::clock() - startTime) / (double) CLOCKS_PER_SEC;
-	// std::cout<<"Time spent: "<<duration<<"\n"
+	double duration = (std::clock() - startTime) / (double) CLOCKS_PER_SEC;
+	std::cout<<"Time spent: "<<duration<<std::endl;
 
 	// Validate your path
-	// bool validation = MazeSolver::ValidatePath(dimension, walls, path);
-	// std::cout<<validation<<std::endl;
+	bool validation = MazeSolver::ValidatePath(dimension, walls, path);
+	std::cout<<"Validate: "<<validation<<std::endl;
+
+	// Draw the maze without path
+	// MazeDrawer::DrawMaze(walls);
+
+	// Draw the maze with a path
+	MazeDrawer::DrawMaze(walls, path);
 
 	return 0;
 }

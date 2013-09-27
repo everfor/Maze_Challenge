@@ -32,7 +32,7 @@ void MazeDrawer::FillCell(SDL_Surface* screen, int x, int y, Uint32 color)
 	MazeDrawer::FillPixel(screen, x + 1, y + 1, color);
 }
 
-// Bresenham's Algorithm
+// Bresenham's Algorithm to draw a line by filling pixels
 // http://www.youtube.com/watch?v=jzFAZK9RUMk
 void MazeDrawer::DrawLine(SDL_Surface* screen, int startX, int startY, int endX, int endY, Uint32 color)
 {
@@ -107,6 +107,8 @@ void MazeDrawer::DrawMaze(std::vector<std::vector<int> > walls)
 		// Horizontal Offset and Vertical Offset
 		int horiOffst = 0, vertOffst = 0;
 
+		// Implement the drawing function here instead of creating a new method
+		// to save memory usage and improve performance
 		// Draw Maze
 		for (int i = 0; i < totalCells - dimension; i++) {
 			// Iterate until second last row
@@ -182,6 +184,7 @@ void MazeDrawer::DrawMaze(std::vector<std::vector<int> > walls)
 
 		SDL_Flip(screen);
 
+		// Maintain the specified FPS rate
 		if (1000 / FPS > SDL_GetTicks() - startTick) {
 			SDL_Delay(1000 / FPS - SDL_GetTicks() + startTick);
 		}

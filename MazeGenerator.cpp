@@ -5,6 +5,11 @@
 	The code is under MIT license, meaning that you may use and modify the codes as you wish,
 	as long as this header and the license file is preserved.
 */
+#include <iostream>
+#include <algorithm>	// Use of std::fill
+#include <stack>		// Use of std::stack
+#include <stdlib.h>		// Use of srand and rand
+#include <time.h>		// Used to generate seeds for random number
 
 #include "MazeGenerator.h"	// The header file where the Maze Generator is defined
 
@@ -81,20 +86,17 @@ std::vector<std::vector<int> > MazeGenerator::GenerateMaze(int dimension)
 			int neighbor = neighbors[rand() % neighbors.size()];
 
 			if (currentCell - neighbor == 1) {
-				// neighbor = currentCell - 1, left neighbor
+				// left neighbor
 				// Break the left wall of current cell and right wall of the neighbor
 				walls[currentCell][0] = walls[neighbor][2] = 0;
 			} else if (currentCell - neighbor == 0 - 1) {
-				// neighbor = currentCell + 1, right neighbor
-				// Break the right wall of current cell and left wall of the neighbor
+				// right neighbor
 				walls[currentCell][2] = walls[neighbor][0] = 0;
 			} else if (currentCell - neighbor == dimension) {
-				// neighbor = currentCell - dimension, upper neighbor
-				// Break the upper wall of current cell and lower wall of the neighbor
+				// upper neighbor
 				walls[currentCell][1] = walls[neighbor][3] = 0;
 			} else {
-				// neighbor = currentCell + dimension, lower neighbor
-				// Break the lower wall of current cell and upper wall of the neighbor
+				// lower neighbor
 				walls[currentCell][3] = walls[neighbor][1] = 0;
 			}
 			
@@ -102,8 +104,8 @@ std::vector<std::vector<int> > MazeGenerator::GenerateMaze(int dimension)
 			cellStack.push_back(currentCell);
 			// Set the neighbor as the new currentCell
 			currentCell = neighbor;
-			// Since this neighbor is visited, increase the visited number by 1
 			
+			// Since this neighbor is visited, increase the visited number by 1
 			++visitedNumber;
 		} else {
 			// If the neighbor list contains no elements, go back to the stack and retrieve the recently pushed cell
