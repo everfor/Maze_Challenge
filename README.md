@@ -7,4 +7,4 @@ Please refer to the wiki page for detailed instructions and documentations
 
 Screenshot
 --------------
-![Screenshot](https://github.com/everfor/Maze_Challenge/screenshot.png)
+![Screenshot](https://github.com/everfor/Maze_Challenge/blob/master/screenshot.png)
