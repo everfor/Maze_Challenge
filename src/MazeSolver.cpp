@@ -137,7 +137,7 @@ bool MazeSolver::ValidatePath(int dimension, std::vector<std::vector<int> > wall
 int main(int argc, char *argv[])
 {
 	// The dimension of the maze
-	int dimension = 220;
+	int dimension = 500;
 
 	// Generate walls for the maze given the dimension
 	std::vector<std::vector<int> > walls = MazeGenerator::GenerateMaze(dimension);
@@ -148,21 +148,23 @@ int main(int argc, char *argv[])
 
 	// Get the path that solves the maze
 	// std::vector<int> path = MazeSolver::SolveMaze(walls);
-	std::vector<int> path = MazeSolver::ExampleSolver(walls);
+	// std::vector<int> path = MazeSolver::ExampleSolver(walls);
 
 	// Timer continued
 	double duration = (std::clock() - startTime) / (double) CLOCKS_PER_SEC;
 	std::cout<<"Time spent: "<<duration<<std::endl;
 
 	// Validate your path
-	bool validation = MazeSolver::ValidatePath(dimension, walls, path);
-	std::cout<<"Validate: "<<validation<<std::endl;
+	// bool validation = MazeSolver::ValidatePath(dimension, walls, path);
+	// std::cout<<"Validate: "<<validation<<std::endl;
 
 	// Draw the maze without path
-	// MazeDrawer::DrawMaze(walls);
+	MazeDrawer::DrawMaze(walls);
 
 	// Draw the maze with a path
-	MazeDrawer::DrawMaze(walls, path);
+	// MazeDrawer::DrawMaze(walls, path);
+
+	std::cout<<"PNG generated!"<<std::endl;
 
 	return 0;
 }
